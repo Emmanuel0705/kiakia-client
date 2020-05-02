@@ -1,0 +1,1 @@
+export const VERIFY_PAYMENT = "VERIFY_PAYMENT"
