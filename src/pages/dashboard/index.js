@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import { Row, Col, UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle, Button } from 'reactstrap';
-import Flatpickr from 'react-flatpickr'
-import { ChevronDown, Mail, Printer, File, Users, Image, ShoppingBag, DollarSign, User } from 'react-feather';
+import { Row, Col, UncontrolledButtonDropdown, Button } from 'reactstrap';
 import Loader from '../../components/Loader';
-import OverviewWidget from '../../components/OverviewWidget';
+
 import crypto from 'crypto'
 
 import Statistics from './Statistics';
-import RevenueChart from './RevenueChart';
-import TargetChart from './TargetChart';
-import SalesChart from './SalesChart';
+
 import Orders from './Orders';
-import Performers from './Performers';
-import Tasks from './Tasks';
-import PaystackButton from 'react-paystack';
+
 import { showPaymentModal, setParentLoader } from '../../redux/Actions/component.action';
 import { connect } from 'react-redux';
-import { fakeWallet } from '../../redux/Actions/auth.action';
+
 
 
 class Dashboard extends Component {

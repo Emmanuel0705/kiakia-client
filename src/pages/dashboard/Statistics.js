@@ -39,9 +39,7 @@ const Statistics = ({user}) => {
         </React.Fragment>
     );
 };
-const mapDispatchToProps = dispatch => ({
-  
-})
+
 const mapStateToProps = state => ({
     user:state.user.user
 })

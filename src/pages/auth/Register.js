@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
 
 import { Container, Row, Col, Card, CardBody, Label, FormGroup, Button,

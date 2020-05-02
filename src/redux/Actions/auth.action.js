@@ -1,7 +1,5 @@
-import { LOGIN_USER, STORE_USER, LOGOUT_USER, FAKE_WALLET } from "../types/auth.type";
+import { STORE_USER, LOGOUT_USER, FAKE_WALLET } from "../types/auth.type";
 import axios from 'axios'
-import { setToken } from "./session.action";
-import isUserAuthenticated from "../../helper/auth.util";
 import { setError, setSuccess } from "./alert.action";
 import { setChildLoader, clearLoader } from "./component.action";
 

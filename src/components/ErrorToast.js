@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import {connect} from 'react-redux'
-import { Card, CardBody, Toast, ToastBody, ToastHeader} from 'reactstrap';
+import { Toast, ToastBody, ToastHeader} from 'reactstrap';
 
 
 const ErrorToast = ({alert}) => {

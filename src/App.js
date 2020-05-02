@@ -1,13 +1,12 @@
 import React, {useEffect } from 'react';
 import Routes from './routes/Routes';
-import { BrowserRouter,Route} from 'react-router-dom';
+import { BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux'
 
 
 import {showSideBar} from "./redux/Actions/component.action"
 import AllTransactionsModal from './components/TransactionsModal'
 import Footer from './components/Footer'
-import Dashboard from './pages/forms/Advanced';
 import SuceessToast from './components/SuccessToast'
 import ErrorToast from './components/ErrorToast'
 
@@ -35,6 +34,7 @@ const App = ({showSideBar,showSideBarFunc}) => {
         <AllTransactionsModal/>
         <Routes/>
         <ErrorToast/>
+        <Footer/>
         <SuceessToast/>
     </BrowserRouter>
    )

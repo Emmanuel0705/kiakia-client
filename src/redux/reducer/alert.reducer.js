@@ -1,4 +1,4 @@
-import {SET_ALERT, SET_ERROR, CLEAR_ALERT, SET_SUCCESS} from "../types/alert.type"
+import { SET_ERROR, CLEAR_ALERT, SET_SUCCESS} from "../types/alert.type"
 const INITIAL_STATE = {
     errorAlert:'',
     successAlert:"",
