@@ -105,7 +105,8 @@ const Register = ({loginUser,error,history,user,loading}) => {
                                                 <div className="auth-page-sidebar">
                                                     <div className="overlay"></div>
                                                     <div className="auth-user-testimonial">
-                                                        <p className="font-size-24 font-weight-bold text-white mb-1">I simply love it!</p>
+                                                       <p className="font-size-24 font-weight-bold text-white mb-1">WELCOME Back To KIAKIA</p>
+                                                        <p className="lead">Enjoy huge discount when you Make a Transaction With KiaKia App.</p>
                                                                                                                
                                                     </div>
                                                 </div>

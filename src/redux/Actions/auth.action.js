@@ -36,8 +36,8 @@ export const registerUser = (formData,history) => async dispatch => {
              dispatch(setError("Password Does not Match"))
             dispatch(clearLoader())
         }
-        if(formData.password.length < 6 || formData.confirmPassword.length < 6){
-            dispatch(setError("Password must be more than 6 character"))
+        if(formData.password.length < 8 || formData.confirmPassword.length < 8){
+            dispatch(setError("Password must be more than 8 character"))
             dispatch(clearLoader())
         }
         const res = await axios.post("https://kiakia-api.herokuapp.com/api/user",formData)
