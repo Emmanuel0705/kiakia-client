@@ -10,6 +10,6 @@ const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware,thunk];
 export const store = createStore(reducers,applyMiddleware(...middlewares));
 sagaMiddleware.run(transactionSaga)
-export const persistor = persistStore(store)
+export const persistor = persistStore(store) 
 
 
