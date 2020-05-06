@@ -7,59 +7,39 @@ import { Card, CardBody, Button, Modal, ModalHeader, ModalBody, ModalFooter, Lab
 import { Check} from 'react-feather';
 import { setError } from '../redux/Actions/alert.action';
 import Loader from '../components/Loader';
-import { cableTv, clearCableData } from '../redux/Actions/transaction.action';
+import { cableTv, payElectricityBill, clearElectData } from '../redux/Actions/transaction.action';
 
-class DataModal extends React.Component {
+class ElectricityModal extends React.Component {
    constructor(props){
        super(props)
-       this.dstvP = [
-         {name:'DStv Access', package:'01',amount:'2000'},
-         {name:'DStv Family', package:'02',amount:'4000'},
-         {name:'DStv Compact', package:'03',amount:'6800'},
-         {name:'DStv Compact Plus', package:'04',amount:'10650'},
-         {name:'DStv Premium', package:'05',amount:'15800'},
-         {name:'DStv Premium + HD/Exra View', package:'06',amount:'18000'}
+       this.company = [
+         {name:'Eko Electric - PHCN', number:'01'},
+         {name:'Ikeja Electric - IKEDC', number:'02'},
+         {name:'Kano Electric - KEDCO', number:'04'},
+         {name:'Port Harcourt - PHED', number:'05'},
+         {name:'Jos Electric - JED', number:'06'}
       ] 
-      this.gotvP = [
-        {name:'GOtv Lite', package:'01',amount:'400'},
-        {name:'GOtv Value', package:'02',amount:'1250'},
-        {name:'GOtv Plus', package:'03',amount:'1900'},
-        {name:'GOtv Max', package:'04',amount:'3200'}
-      ]
-      this.starTP = [
-        {name:'SarTimes Nova', package:'01',amount:'900'},
-        {name:'SarTimes Basic', package:'02',amount:'1300'},
-        {name:'SarTimes Smart', package:'03',amount:'1900'},
-        {name:'SarTimes Classic', package:'04',amount:'2600'},
-        {name:'SarTimes Unique', package:'05',amount:'3800'},
-        {name:'SarTimes Super', package:'06',amount:'3800'}
-      ]
+     
       this.state = {
-        bundle:this.dstvP,
-        cable:'01',
-        package:this.dstvP[0].package,
-        name:this.dstvP[0].name,
-        amount:this.dstvP[0].amount,
-        cardNo:""
+        meterType:'01',
+        meterNo:'',
+        compName:this.company[0].name,
+        compNo:this.company[0].number,
+        amount:''
    }
             
    }
  
  onSubmit = e => {
     e.preventDefault()
-    const data = {
-        cable:this.state.cable,
-        package:this.state.package,
-        cardNo:this.state.cardNo,
-        packageName:this.state.name,
-        amount:this.state.amount
-    }
     this.props.setLoader()
-    this.props.cableTvFunc(data)           
+    console.log(this.state)
+    this.props.payBill(this.state)      
 }
 onSubscribe = () => {
     this.props.setLoader()
-    this.props.cableTvFunc(this.props.cableData)
+    this.props.payBill(this.props.electricityData) 
+
 }
 componentDidMount(){
    
@@ -79,21 +59,21 @@ onChangeCable = e => {
     }
    
 }
-changePackage = (e) => {
-    this.setState({package:e.target.value.split(",")[0],
-    amount:e.target.value.split(",")[1],name:e.target.value.split(",")[2]})
+onChangeCompany = (e) => {
+    this.setState({number:e.target.value.split(",")[0],
+    compName:e.target.value.split(",")[1]})
 }
 
    render(){
     return (
         <React.Fragment>
             <Modal
-                isOpen={this.props.cableModal}
+                isOpen={this.props.electricityModal}
                 
                 className="modal-dialog-scrollable"
                 size={null}>
                     {this.props.loader && <Loader/>}
-                <ModalHeader toggle={() => this.props.closeModal()}>Cable TV Subscription</ModalHeader>
+                <ModalHeader toggle={() => this.props.closeModal()}>Electricity Bill Payment</ModalHeader>
                   {this.props.error && <div className="alert alert-danger m-3">{this.props.error} </div>}
                
                 <ModalBody>
@@ -101,7 +81,7 @@ changePackage = (e) => {
                      <Card>
                         <CardBody>
                            {
-                               this.props.cableData ? 
+                               this.props.electricityData ? 
                                <Fragment>
                                <ListGroup className="font-size-16">
                                     <ListGroupItem active
@@ -109,57 +89,68 @@ changePackage = (e) => {
                                     style={{fontFamily:"courier"}} >Confirm Your Details
                                      </ListGroupItem>
                                     <ListGroupItem >
-                                        <b>Decode Name:</b> {this.props.cableData.name}
+                                        <b>Company Name: </b> 
+                                        {this.props.electricityData.compName}
                                      </ListGroupItem>
                                     <ListGroupItem >
-                                        <b>Decode Number:</b> {this.props.cableData.cardNo}
+                                        <b>Meter Type: </b>
+                                         {this.props.electricityData.meterType === "01"? 
+                                         (" Prepiad"):(" Postpaid")}
                                      </ListGroupItem>
                                     <ListGroupItem >
-                                        <b>Package:</b> {this.props.cableData.packageName}
+                                        <b>Customer Name: </b> {this.props.electricityData.name}
                                      </ListGroupItem>
                                      <ListGroupItem >
-                                         <b>Amount:</b> {this.props.cableData.amount}
+                                        <b>Meter No.: </b> {this.props.electricityData.meterNo}
+                                     </ListGroupItem>
+                                     <ListGroupItem >
+                                         <b>Amount: </b> ₦{this.props.electricityData.amount}
                                      </ListGroupItem>
                              </ListGroup>
-                             <Button color="primary" onClick={() => this.onSubscribe()}
+                             <Button color="primary" onClick={(e) => this.onSubscribe(e)}
                               className="mt-2 btn-block">Proceed</Button>
-                             <Button color="danger" onClick={() => this.props.clearCableData()} className="mt-2 float-right btn-block">Cancel Transaction</Button>
+                             <Button color="danger" onClick={() => this.props.clearElectData()} className="mt-2 float-right btn-block">Cancel Transaction</Button>
                              </Fragment>  :
                               <Form onSubmit={e => this.onSubmit(e)}>
                                 <FormGroup>
-                                        <Label>Cable Tv</Label>
+                                        <Label>Electricity Company</Label>
                                         <Input type="select" required 
-                                        onChange={ e => this.onChangeCable(e) }>                                   
-                                        <option value="01">DSTV</option>
-                                        <option value="02">GOTV</option>
-                                        <option value="03">StartTimes</option>
+                                        onChange={ e => this.onChangeCompany(e) }>                                   
+                                         {
+                                            this.company.map((comp) => {
+                                                return <option key={comp.name}
+                                                value={`${comp.number},${comp.name}`}>
+                                                    {comp.name}</option>
+                                            })
+                                        }     
                                     </Input>
                                     </FormGroup>
                                 <FormGroup>
-                                        <Label>Package</Label>
+                                        <Label>Meter Type</Label>
                                         <Input type="select" name="Data" required 
-                                        onChange={ e => this.changePackage(e) }>
-                                        {
-                                            this.state.bundle.map((bundl) => {
-                                                return <option key={bundl.name}
-                                                value={`${bundl.package},${bundl.amount},${bundl.name}`}>
-                                                    {bundl.name}</option>
-                                            })
-                                        }                          
+                                        onChange={ e => this.setState({meterType:e.target.value}) }>
+                                        <option value='01'>
+                                            Prepaid Meter
+                                        </option>
+                                        <option value='02'>
+                                            Postpaid Meter
+                                        </option>                                                            
                                     </Input>
                                     </FormGroup>
                                     
                                     <FormGroup>
-                                        <Label>Card No</Label>
-                                        <Input value={this.state.cardNo} onChange={e => this.setState({cardNo:e.target.value})}
+                                        <Label>Meter Number</Label>
+                                        <Input value={this.state.meterNo} 
+                                        onChange={e => this.setState({meterNo:e.target.value})}
                                         type="number"
                                         required />
                                         
                                     </FormGroup>
                                     <FormGroup>
-                                    <Label>Amount To Pay</Label>
-                                    <Input value={this.state.amount} name="AmountToPay" type="text"
-                                    disabled  />
+                                    <Label>Amount</Label>
+                                    <Input required value={this.state.amount} name="AmountToPay"
+                                      onChange={e => this.setState({amount:e.target.value})} 
+                                      type="number" />
                                     </FormGroup>
                                     <Button color="primary" type="submit">
                                         <Check/> Submit
@@ -184,11 +175,12 @@ changePackage = (e) => {
    
 };
 const mapStateToProps = (state) => ({
-    cableModal:state.component.showCableModal,
+    electricityModal:state.component.showElectricModal,
     error:state.alert.errorAlert,
     user:state.user.user,
     loader:state.component.childLoader,
-    cableData:state.transaction.cableDetails
+    cableData:state.transaction.cableDetails,
+    electricityData:state.transaction.electricityData
 })
 const mapDispatchToprops = dispatch => ({
     closeModal: () => dispatch(closeModal()),
@@ -196,8 +188,9 @@ const mapDispatchToprops = dispatch => ({
     setLoader: () => dispatch(setChildLoader()),
     clearLoader: () => dispatch(clearLoader()),
     cableTvFunc: (e) => dispatch(cableTv(e)),
-    clearCableData: () => dispatch(clearCableData())
+    clearElectData: () => dispatch(clearElectData()),
+    payBill:(data) => dispatch(payElectricityBill(data))
 })
 
 
-export default connect(mapStateToProps,mapDispatchToprops)(DataModal);
+export default connect(mapStateToProps,mapDispatchToprops)(ElectricityModal);

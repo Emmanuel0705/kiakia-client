@@ -7,6 +7,7 @@ import componentReducer from './reducer/component.reducer';
 import alertReducer from './reducer/alert.reducer';
 import sessionReducer from './reducer/session.reducer';
 import userReducer from './reducer/auth.reducer';
+import transactionReducer from './reducer/transaction.reducer';
 const config = {
     key:'root',
     storage:sessionStorage,
@@ -16,8 +17,8 @@ const rootReducer = combineReducers({
     component:componentReducer,
     alert:alertReducer,
     session:sessionReducer,
-    user:userReducer
-    
+    user:userReducer,
+    transaction:transactionReducer
 });
 
 export default persistReducer(config,rootReducer)

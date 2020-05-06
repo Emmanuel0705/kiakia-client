@@ -3,9 +3,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Home } from 'react-feather';
 import {connect} from 'react-redux'
-import {showAirtimeModal,showDataModal, showCableModal} from '../redux/Actions/component.action'
+import {showAirtimeModal,showDataModal, showCableModal, showElectricityModal, 
+    showRechargeModal} from '../redux/Actions/component.action'
 
-const Navbar = ({showAirtimeModal,showDataModal,showCableModal}) => {
+const Navbar = ({showAirtimeModal,showDataModal,showCableModal,showRechargeModal,
+    showElectricityModal}) => {
     return (
         <React.Fragment>
             <div className="sidebar-content">
@@ -35,6 +37,18 @@ const Navbar = ({showAirtimeModal,showDataModal,showCableModal}) => {
                               <span> Cable TV </span>
                           </Link>
                         </li>
+                        <li onClick={() => showElectricityModal()}>
+                           <Link to="">
+                           <i className="uil uil-wind"></i>
+                              <span> Electricity Bill</span>
+                          </Link>
+                        </li>
+                        <li onClick={() => showRechargeModal()}>
+                           <Link to="">
+                           <i className="uil uil-edit"></i>
+                              <span>Print Recharge Card</span>
+                          </Link>
+                        </li>
                     </ul>
               </div>
             </div>
@@ -44,7 +58,9 @@ const Navbar = ({showAirtimeModal,showDataModal,showCableModal}) => {
 const mapDispatchToprops = dispatch => ({
     showAirtimeModal: () => dispatch(showAirtimeModal()),
     showDataModal: () => dispatch(showDataModal()),
-    showCableModal: () => dispatch(showCableModal())
+    showCableModal: () => dispatch(showCableModal()),
+    showElectricityModal: () => dispatch(showElectricityModal()),
+    showRechargeModal: () => dispatch(showRechargeModal())
 })
 
 export default connect(null,mapDispatchToprops)(Navbar);
