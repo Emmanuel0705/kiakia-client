@@ -42,7 +42,7 @@ export const buyData = formData =>({
 })
 export const buyAirtime = (formData) => async dispatch => {
     try {
-        const res = await axios.post("http://localhost:5000/api/transaction/buy-airtime",formData)
+        const res = await axios.post("https://kiakia-api.herokuapp.com/api/transaction/buy-airtime",formData)
         
     if(res){       
         console.log(res)

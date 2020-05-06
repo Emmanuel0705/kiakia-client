@@ -7,7 +7,7 @@ import { storeCableData, storeElectricityData, requestPin } from '../Actions/tra
 
 export function* dataAsync(action){
   try {
-      const res =  yield axios.post('http://localhost:5000/api/transaction/buy-data',
+      const res =  yield axios.post('https://kiakia-api.herokuapp.com/api/transaction/buy-data',
       action.payload)
       if(res.data){
         yield put(setError("Error Occured! Pls Try Again"))
@@ -23,7 +23,7 @@ export function* dataAsync(action){
 export function* electricityAsync(action){
   try {
     if(action.payload.verified){
-      const res =  yield axios.post('http://localhost:5000/api/transaction/electricity-bill',
+      const res =  yield axios.post('https://kiakia-api.herokuapp.com/api/transaction/electricity-bill',
       action.payload)
         
         if(res.data){
@@ -35,7 +35,7 @@ export function* electricityAsync(action){
         }
 
     }else{
-      const res =  yield axios.post('http://localhost:5000/api/transaction/electricity-bill/verify',
+      const res =  yield axios.post('https://kiakia-api.herokuapp.com/api/transaction/electricity-bill/verify',
       action.payload)
       if(res.data.status === "success"){
         yield put(storeElectricityData({...action.payload,verified:true,name:res.data.customer_name}))
@@ -59,7 +59,7 @@ export function* electricityAsync(action){
 export function* CableAsync(action){
   try {
     if(action.payload.verified){
-      const res =  yield axios.post('http://localhost:5000/api/transaction/cable-tv',
+      const res =  yield axios.post('https://kiakia-api.herokuapp.com/api/transaction/cable-tv',
       action.payload)
 
       if(res.data.status === 'fail'){
@@ -67,7 +67,7 @@ export function* CableAsync(action){
       }
       
     }else{
-      const res =  yield axios.post('http://localhost:5000/api/transaction/cable-tv/verify',
+      const res =  yield axios.post('https://kiakia-api.herokuapp.com/api/transaction/cable-tv/verify',
       action.payload)
       if(res.data.status === 'fail'){
         yield put(setError(res.data.message))
@@ -90,7 +90,7 @@ export function* rechargePinAsync(action){
   try {
     if(action.payload.verified){
       console.log(action.payload)
-      const res =  yield axios.post('http://localhost:5000/api/transaction/recharge-pin',
+      const res =  yield axios.post('https://kiakia-api.herokuapp.com/api/transaction/recharge-pin',
       action.payload)
      if(res.data.status === 'fail'){
        yield put(setError(res.data.message))
