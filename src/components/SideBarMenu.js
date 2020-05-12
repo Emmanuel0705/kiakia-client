@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { Home } from 'react-feather';
 import {connect} from 'react-redux'
 import {showAirtimeModal,showDataModal, showCableModal, showElectricityModal, 
-    showRechargeModal} from '../redux/Actions/component.action'
+    showRechargeModal,
+    showTranferModal} from '../redux/Actions/component.action'
 
 const Navbar = ({showAirtimeModal,showDataModal,showCableModal,showRechargeModal,
-    showElectricityModal}) => {
+    showElectricityModal,showTranferModal}) => {
     return (
         <React.Fragment>
             <div className="sidebar-content">
@@ -19,6 +20,12 @@ const Navbar = ({showAirtimeModal,showDataModal,showCableModal,showRechargeModal
                               <span> Dashboard </span>
                           </Link>
                         </li>
+                        {/* <li onClick={() => showTranferModal()}>
+                           <Link to="">
+                           <i className="uil uil-edit"></i>
+                              <span>Transfer Money</span>
+                          </Link>
+                        </li> */}
                         <li onClick={() => showAirtimeModal()}>
                            <Link to="">
                                <i className="uil uil-outgoing-call"></i>
@@ -49,6 +56,7 @@ const Navbar = ({showAirtimeModal,showDataModal,showCableModal,showRechargeModal
                               <span>Print Recharge Card</span>
                           </Link>
                         </li>
+                        
                     </ul>
               </div>
             </div>
@@ -60,7 +68,8 @@ const mapDispatchToprops = dispatch => ({
     showDataModal: () => dispatch(showDataModal()),
     showCableModal: () => dispatch(showCableModal()),
     showElectricityModal: () => dispatch(showElectricityModal()),
-    showRechargeModal: () => dispatch(showRechargeModal())
+    showRechargeModal: () => dispatch(showRechargeModal()),
+    showTranferModal: () => dispatch(showTranferModal())
 })
 
 export default connect(null,mapDispatchToprops)(Navbar);

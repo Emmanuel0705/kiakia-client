@@ -12,4 +12,3 @@ export const store = createStore(reducers,applyMiddleware(...middlewares));
 sagaMiddleware.run(transactionSaga)
 export const persistor = persistStore(store) 
 
-

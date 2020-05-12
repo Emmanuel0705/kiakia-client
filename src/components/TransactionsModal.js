@@ -7,9 +7,10 @@ import PaymentModal from './PaymentModal'
 import CableTvModal from './CableTvModal';
 import ElectricityModal from './ElectricityModal'
 import RechargeModal from './RechargePinModal'
+import TransferModal from './transferModal'
 
 const TransactionsModal = ({airtimeModal,dataModal,paymentModal,cableModal,
-    electricityModal,rechargeModal}) => {
+    electricityModal,rechargeModal,transferModal}) => {
     return (
         <React.Fragment>
           {
@@ -30,6 +31,9 @@ const TransactionsModal = ({airtimeModal,dataModal,paymentModal,cableModal,
           {
               electricityModal ? <ElectricityModal/> : ""
           }
+          {
+              transferModal ? <TransferModal/> : ""
+          }
         </React.Fragment>
     );
 };
@@ -39,7 +43,8 @@ const mapStateToProps = (state) => ({
     cableModal:state.component.showCableModal,
     paymentModal:state.component.showPaymentModal,
     electricityModal:state.component.showElectricModal,
-    rechargeModal:state.component.showRechargeModal
+    rechargeModal:state.component.showRechargeModal,
+    transferModal:state.component.showTransferModal
 })
 
 export default connect(mapStateToProps)(TransactionsModal);

@@ -134,7 +134,7 @@ const mapStateToProps = state => ({
     error:state.alert.errorAlert,
     token:state.session.token,
     user:state.user.user,
-    loading:state.component.childLoader
+    loading:state.component.parentLoader
 })
 const mapDispatchToProps = dispatch => ({
     loginUser: (data,history) => dispatch(loginUser(data,history))

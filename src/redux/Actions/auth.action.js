@@ -1,13 +1,13 @@
 import { STORE_USER, LOGOUT_USER, FAKE_WALLET } from "../types/auth.type";
 import axios from 'axios'
 import { setError, setSuccess } from "./alert.action";
-import { setChildLoader, clearLoader } from "./component.action";
+import { setChildLoader, clearLoader, setParentLoader } from "./component.action";
 
 export const logout = () => ({
      type:LOGOUT_USER
 })
 export const loginUser = (formData,history) => async dispatch => {
-    dispatch(setChildLoader())
+    dispatch(setParentLoader())
     try {
         const res = await axios.post("https://kiakia-api.herokuapp.com/api/user/auth",formData)
         if(res.data.status === 'error'){
@@ -18,10 +18,7 @@ export const loginUser = (formData,history) => async dispatch => {
             window.sessionStorage.setItem("token",res.data.token)
             dispatch(storeUser(res.data.token))
             history.push('/dashboard')
-            setTimeout(() => {
-                dispatch(clearLoader())
-            }, 6000);
-           
+                      
         }
     } catch (err) {
         dispatch(clearLoader())
